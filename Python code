@@ -22,5 +22,4 @@ while True:
             file.seek(0)
             for line in content:
                 if not any(website in line for website in websites_to_block):
-                    file.write(line)
-            fil
+                    file.write(l
