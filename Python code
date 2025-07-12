@@ -1,1 +1,27 @@
-website blocker.py 
+import time
+from datetime import datetime as dt
+
+hosts_path = "/etc/hosts"
+redirect = "127.0.0.1"
+websites_to_block = ["www.example.com", "example.com"]
+start_time = 8
+end_time = 16
+
+while True:
+    if dt(dt.now().year, dt.now().month, dt.now().day, start_time) < dt.now() < dt(dt.now().year, dt.now().month, dt.now().day, end_time):
+        print("Blocking websites...")
+        with open(hosts_path, 'r+') as file:
+            content = file.read()
+            for website in websites_to_block:
+                if website not in content:
+                    file.write(redirect + " " + website + "\n")
+    else:
+        print("Unblocking websites...")
+        with open(hosts_path, 'r+') as file:
+            content = file.readlines()
+            file.seek(0)
+            for line in content:
+                if not any(website in line for website in websites_to_block):
+                    file.write(line)
+            file.truncate()
+    time.sleep(60)
