@@ -24,4 +24,4 @@ while True:
                 if not any(website in line for website in websites_to_block):
                     file.write(line)
             file.truncate()
-    time.sleep(60)
+    time.sleep(60) 
